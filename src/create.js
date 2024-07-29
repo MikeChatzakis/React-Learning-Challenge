@@ -9,14 +9,8 @@ const Create = () => {
 
     const [isPending, setIsPending] = useState(false);
     const history=useHistory();
-    const [my_id, setId] = useState('null');
 
-    
-    
-    
-    
-    
-    
+
     const handleSubmit = (e) => {
         e.preventDefault();
         const blog= {title,body,author};
@@ -31,65 +25,15 @@ const Create = () => {
         .then(res => res.json())
         .then(createdObject  => {
             setIsPending(false);
-            setId(createdObject.id);
-            console.log("Here:"+my_id);
             history.push('/blog/'+createdObject.id);
+        })
+        .catch((err) => {
+            setError(err.message);
+            console.log(error);
         })
 
        
     }
-
-    // const handleSubmit = async (e) => {
-    //     e.preventDefault();
-    //     const blog= {title,body,author};
-        
-
-    //     try {
-    //         const res = await fetch('http://localhost:8000/blogs',{
-    //             method: 'POST',
-    //             headers: {"Content-type": "application/json"},
-    //             body: JSON.stringify(blog)
-    //         })
-
-    //         if (!res.ok) {
-    //             switch (res.status) {
-    //                 case 400:
-    //                     throw new Error('Bad Request: The server could not understand the request.');
-    //                 case 401:
-    //                     throw new Error('Unauthorized: Authentication is required or has failed.');
-    //                 case 403:
-    //                     throw new Error('Forbidden: You do not have permission to access this resource.');
-    //                 case 404:
-    //                     throw new Error('Not Found: The requested resource could not be found.');
-    //                 case 500:
-    //                     throw new Error('Internal Server Error: The server encountered an error.');
-    //                 case 503:
-    //                     throw new Error('Service Unavailable: The server is temporarily unavailable.');
-    //                 default:
-    //                     throw new Error(`Unexpected error: ${res.status}`);
-    //             }
-    //         }
-    //         setIsPending(false);
-                
-                
-
-    //         //history.push('http://localhost:3000/blog/'+await res.json().id);
-    //         const createdObject =await res.json();
-    //         setId(createdObject.id);
-    //         console.log("here2:"+my_id);
-
-
-    //     } catch (error) {
-    //         setError(error.message);
-    //     }
-    // }
-
-
-
-
-
-
-
 
     return (
         <div className="create">
